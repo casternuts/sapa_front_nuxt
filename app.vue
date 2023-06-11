@@ -2,20 +2,22 @@
 import { AppConfigInput } from '@nuxt/schema'
 import { AppSetup } from './utils/app'
 import { ITheme } from './utils/theme'
+import { IThemeSettingOptions } from '~/utils/theme'
 AppSetup()
 const theme = useState<ITheme>('theme.current')
 const locale = useState<string>('locale.setting')
 const app = useAppConfig() as AppConfigInput
-
+const themeSetting = useState<IThemeSettingOptions>('theme.setting')
+themeSetting.value = 'light'
 useHead({
   title: app.name,
-  titleTemplate: '%s - Nuxt 3 Awesome Starter',
+  titleTemplate: '%s - Sapa',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     {
       hid: 'description',
       name: 'description',
-      content: 'Nuxt 3 Awesome Starter',
+      content: 'Start All Purchese Analysis',
     },
   ],
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

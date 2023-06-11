@@ -1,7 +1,7 @@
 export default defineAppConfig({
-  name: 'Nuxt 3 Awesome Starter',
+  name: 'Start All Purchese Analysis',
   author: {
-    name: 'viandwi24',
+    name: 'casternuts',
     link: 'https://github.com/viandwi24',
   },
 })

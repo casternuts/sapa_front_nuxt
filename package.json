@@ -4,9 +4,9 @@
   "description": "a Nuxt 3 starter template or boilerplate with a lot of useful features. Nuxt3 + Tailwindcss 3",
   "repository": {
     "type": "git",
-    "url": "git://github.com/viandwi24/nuxt3-awesome-starter"
+    "url": "git://github.com/casternuts/nuxt3-awesome-starter"
   },
-  "author": "viandwi24",
+  "author": "casternuts",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -67,5 +67,8 @@
     "**/*.{js,ts,vue,html}": [
       "pnpm lintfix"
     ]
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
   }
 }
