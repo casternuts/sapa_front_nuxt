@@ -2,6 +2,6 @@ export default defineAppConfig({
   name: 'Start All Purchese Analysis',
   author: {
     name: 'casternuts',
-    link: 'https://github.com/viandwi24',
+    link: 'https://github.com/casternuts',
   },
 })
