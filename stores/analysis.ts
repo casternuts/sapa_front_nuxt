@@ -1,23 +1,104 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-export interface IAnalysisState {
-  gptResult: string
-  backEndResult: string
-  searchString: string
-}
 
+export interface target {
+  title: any
+ 
+}
+export interface IAnalysisState {
+  gptResult: any
+  backEndResult: Object
+  searchString: string
+  startdate: any
+  endDate: any
+  timeUnit: any
+  chartData :any
+  load:any,
+  itemdata:any
+}
+export const data = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+    {
+      label: 'Data One',
+      backgroundColor: '#f87979',
+      data: [40, 39, 10, 40, 39, 80, 40]
+    }
+  ]
+}
 export const useAnalysis = defineStore('analysis', {
   state: (): IAnalysisState => ({
     gptResult: '',
     backEndResult: '',
-    searchString:''
+    searchString:'',
+    startdate:'',
+    endDate:'',
+    timeUnit:'',
+    chartData:null,
+    load:false,
+    itemdata:''
   }),
   actions: {
     async searchGpt() {
       try {
-        const data = await axios.get('https://jsonplaceholder.typicode.com/users')
-        this.gptResult = data.data
+        
+        const data = await axios.get('http://127.0.0.1:8000/api/v1/search/keyword/'+this.searchString)
+        this.gptResult = data.data.results;
+        this.startdate = data.data.startdate;
+        
+        this.endDate = data.data.endDate;
+        this.timeUnit = data.data.timeUnit;
          console.log(data.data);
+
+         console.log( this.gptResult);
+        
+        //  let labels:any =[];
+         let labels: any[] = this.gptResult[0].data.map((value: any) => value.period );
+         let datasets :any=[];
+        
+         for(let i =0; i< this.gptResult.length; i++){
+          let targetData :any = {};
+          let targets :any = this.gptResult[i];
+          let period: any[] = targets.data.map((value: any) => value.period );
+          let ratio : any[] = targets.data.map((value: any) => value.ratio );
+          labels = period;
+          targetData.label = targets.title;
+          let color:any = Math.random()*0xffffff;
+          targetData.backgroundColor ="#"+(parseInt(color)).toString(16);
+          targetData.data = ratio;
+
+
+          datasets.push(targetData);
+          console.log(targetData)
+         }
+        
+         let chartData :any = {};
+         chartData.labels = labels;
+         chartData.datasets = datasets;
+        this.chartData =chartData;
+        console.log(this.chartData)
+
+        this.load = true;
+
+        }
+        catch (error) { 
+          alert(error)
+          await console.log(error)
+      }
+     await console.log(this.searchString);
+    },
+    async searchItem() {
+      try {
+        
+        const data = await axios.get('http://127.0.0.1:8000/api/v1/search/itemcsv/'+this.searchString)
+        this.itemdata = data;
+    
+        console.log(this.itemdata);
+       
+        
+        //  let labels:any =[];
+        
+
         }
         catch (error) { 
           alert(error)
@@ -39,6 +120,15 @@ export const useAnalysis = defineStore('analysis', {
   getters: {
     fullResult(): string {
       return `${this.gptResult} ${this.backEndResult}`
+    },
+    getResults():any{
+      return this.gptResult
+    },
+    getloaded(state):any{
+      return state.load
+    },
+    getchartData(state):any{
+      return state.chartData
     },
   },
 })

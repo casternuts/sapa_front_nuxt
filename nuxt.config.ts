@@ -3,8 +3,18 @@ import IconsResolver from 'unplugin-icons/resolver'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
+  nitro: {
+    
+    devProxy: {
+        "/api": {
+            target:"http://127.0.0.1:8000/api/*",
+            changeOrigin: true
+            
+        }
+    }
+},
   // server side rendering mode
-  ssr: true,
+  ssr: false,
 
   // typescripts
   typescript: {
@@ -22,6 +32,8 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@headlessui/vue'],
   },
+ 
+
 
   // modules
   modules: [
@@ -30,8 +42,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/content',
     '@vueuse/nuxt',
-    'nuxt-windicss',
+    'nuxt-windicss'
+    
   ],
+ 
 
   // experimental features
   experimental: {
@@ -43,6 +57,14 @@ export default defineNuxtConfig({
 
   // vite plugins
   vite: {
+    server: {
+      proxy: {
+          '/api/*': {
+              target: 'http://127.0.0.1:8000/api/*',
+              changeOrigin: true
+          }
+      }
+  },
     plugins: [
       UnpluginComponentsVite({
         dts: true,
