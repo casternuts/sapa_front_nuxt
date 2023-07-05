@@ -17,3 +17,4 @@ dist
 .vercel
 
 .pnpm-lock.yaml
+components.d.ts
