@@ -100,10 +100,12 @@ const analysis = useAnalysis();
             </div>
               
         </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 overflow-auto h-full" style="margin-top:15px;">
         <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
           <div class="cardheader">
                 <div>
-                    <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">관련 후기 긍부정 차트</h4>
+                    <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">관련 후기 요약</h4>
                     <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">엑셀</button>
                     <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">자세히</button>
                   </div>
@@ -115,7 +117,7 @@ const analysis = useAnalysis();
         <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
           <div class="cardheader">
                 <div>
-                    <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">GPT 리뷰 요약</h4>
+                    <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">마케팅 인사이트</h4>
                     <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button>
                   </div>
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
@@ -123,17 +125,7 @@ const analysis = useAnalysis();
             </div>
               
         </div>
-        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
-          <div class="cardheader">
-                <div>
-                    <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">GPT 정보 요약</h4>
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button>
-                  </div>
-                <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
-                <hr class="bg-white w-full"/>
-            </div>
-              
-        </div>
+    
       </div>
           <!-- <div
             class="flex flex-col items-center space-y-2 md:space-y-0 md:flex-row md:space-x-2"
