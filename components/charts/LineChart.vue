@@ -34,6 +34,7 @@ const option ={
          console.log(analysis.getchartData[event[0].datasetIndex])
         
          console.log( analysis.chartData.datasets[event[0].datasetIndex])
+         analysis.searchItem(event[0].datasetIndex)
        }}
       
 

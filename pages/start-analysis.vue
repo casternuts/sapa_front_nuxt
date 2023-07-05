@@ -5,6 +5,8 @@ import { useAnalysis } from '~/stores/analysis'
 import { capitalize } from '~/utils/str'
 import cButton from '~/components/Button.vue'
 import BarChart  from '~/components/charts/BarChart.vue'
+import Grid  from '~/components/grid/grid.vue'
+import Easygrid  from '~/components/grid/easygrid.vue'
 import LineChart  from '~/components/charts/LineChart.vue'
 
 // composable
@@ -27,6 +29,15 @@ useHead(() => ({
 // const counter = useCounter()
 // const identity = useIdentity()
 const analysis = useAnalysis();
+
+const data = [
+        {
+            "id": 1,
+            "review": "Mis1ti123124124124",
+           
+        },
+       
+    ]
 </script>
 
 <template>
@@ -98,7 +109,8 @@ const analysis = useAnalysis();
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
             </div>
-              
+            <Easygrid ></Easygrid>
+            <!-- <Grid :rows="analysis.getItemData"></Grid> -->
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4 overflow-auto h-full" style="margin-top:15px;">
@@ -112,7 +124,10 @@ const analysis = useAnalysis();
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
             </div>
-              
+
+            <!-- <Grid :rows="data"></Grid> -->
+           
+            
         </div>
         <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
           <div class="cardheader">

@@ -87,13 +87,19 @@ export const useAnalysis = defineStore('analysis', {
       }
      await console.log(this.searchString);
     },
-    async searchItem() {
+    //차트 클릭시
+    async searchItem(searchKeyword:any) {
       try {
-        
-        const data = await axios.get('http://127.0.0.1:8000/api/v1/search/itemcsv/'+this.searchString)
-        this.itemdata = data;
+        console.log(this.gptResult);
+        console.log(this.gptResult[searchKeyword].keywords);
+        this.gptResult[searchKeyword].keywords.join(',')
+         const itemdata = await axios.get('http://127.0.0.1:8000/api/v1/search/itemcsv/'+this.gptResult[searchKeyword].keywords.join(','))
+         this.itemdata = JSON.parse(itemdata.data);
     
-        console.log(this.itemdata);
+         console.log(this.itemdata);
+         
+
+         
        
         
         //  let labels:any =[];
@@ -130,5 +136,9 @@ export const useAnalysis = defineStore('analysis', {
     getchartData(state):any{
       return state.chartData
     },
+    getItemData(state):any{
+      return state.itemdata
+    },
+    
   },
 })

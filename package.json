@@ -69,11 +69,13 @@
     ]
   },
   "dependencies": {
+    "@jobinsjp/vue3-datatable": "^1.0.15",
     "@nuxtjs/proxy": "^2.1.0",
     "@types/chart.js": "^2.9.37",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
     "vue-chartjs": "^5.2.0",
-    "vue-property-decorator": "^9.1.2"
+    "vue-property-decorator": "^9.1.2",
+    "vue3-easy-data-table": "^1.5.47"
   }
 }

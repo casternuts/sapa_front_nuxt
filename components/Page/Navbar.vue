@@ -11,21 +11,17 @@ export interface IMenuItem {
 const { t } = useLang()
 const app = useAppConfig() as AppConfigInput
 const menus = computed((): IMenuItem[] => [
-  {
-    type: 'link',
-    text: t('pages.getting-started.nav'),
-    route: { name: 'getting-started' },
-  },
+ 
   { type: 'link', text: t('pages.startanalysis.nav'), route: { name: 'start-analysis' } },
-  { type: 'link', text: t('pages.blank.nav'), route: { name: 'blank' } },
-  { type: 'link', text: t('pages.test.nav'), route: { name: 'test' } },
-  { type: 'link', text: t('pages.post.nav'), route: { name: 'post' } },
-  { type: 'link', text: t('pages.setting.nav'), route: { name: 'setting' } },
-  {
-    type: 'button',
-    text: t('pages.dashboard.nav'),
-    route: { name: 'dashboard' },
-  },
+  // { type: 'link', text: t('pages.blank.nav'), route: { name: 'blank' } },
+  // { type: 'link', text: t('pages.test.nav'), route: { name: 'test' } },
+  // { type: 'link', text: t('pages.post.nav'), route: { name: 'post' } },
+  // { type: 'link', text: t('pages.setting.nav'), route: { name: 'setting' } },
+  // {
+  //   type: 'button',
+  //   text: t('pages.dashboard.nav'),
+  //   route: { name: 'dashboard' },
+  // },
 ])
 </script>
 
@@ -100,10 +96,10 @@ const menus = computed((): IMenuItem[] => [
               </li>
             </ul>
           </nav>
-          <div class="mt-6 text-sm font-bold capitalize">
+          <!-- <div class="mt-6 text-sm font-bold capitalize">
             {{ $t('components.theme_switcher.change_theme') }}
-          </div>
-          <div class="mt-2">
+          </div> -->
+          <!-- <div class="mt-2">
             <ThemeSwitcher type="select-box" />
           </div>
           <div class="mt-6 text-sm font-bold capitalize">
@@ -111,16 +107,16 @@ const menus = computed((): IMenuItem[] => [
           </div>
           <div class="mt-2">
             <LanguageSwitcher type="select-box" />
-          </div>
+          </div> -->
         </ActionSheetBody>
-        <Button
+        <!-- <Button
           type="secondary"
           title="Github"
           href="https://github.com/viandwi24/nuxt3-awesome-starter"
         >
           <IconMdi:github-face />
           <span class="ml-1">Github</span>
-        </Button>
+        </Button> -->
         <Button
           text="Close"
           type="secondary"
