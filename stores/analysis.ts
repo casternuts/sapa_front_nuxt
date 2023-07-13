@@ -17,6 +17,7 @@ export interface IAnalysisState {
   chartData :any
   load:any,
   itemdata:any,
+  searchKeywordInput:any,
   reviewSelectData:any,
   reviewInsightData:any
 }
@@ -44,7 +45,8 @@ export const useAnalysis = defineStore('analysis', {
     searchFrom:'',
     searchTo:'',
     reviewSelectData:'',
-    reviewInsightData:'분석된 내용이 없습니다'
+    reviewInsightData:'분석된 내용이 없습니다',
+    searchKeywordInput:''
   }),
   actions: {
     async searchGpt() {
@@ -133,7 +135,7 @@ export const useAnalysis = defineStore('analysis', {
          console.log( this.reviewSelectData);
 
          const reviewInsightResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewselect/'+ searchKeyword)
-         this.reviewInsightData =  JSON.parse(reviewInsightResult.data)
+         this.reviewInsightData = reviewInsightResult.data.replace(/\n/g, "<br>"); 
         
 
         }

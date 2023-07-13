@@ -29,7 +29,7 @@ const headers: Header[] = [
 const showRow = (item: ClickRowArgument) => {
   console.log(JSON.stringify(item)) 
   let itemName :String=item.itemname;
-  analysis.searchReviewSelectGrid("낙지 김치죽 (1인분)");
+  analysis.searchReviewSelectGrid(itemName);
 };
 
 

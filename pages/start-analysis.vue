@@ -117,7 +117,23 @@ const data = [
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">관련 상품리스트</h4>
-                    <button @click="analysis.searchItem" class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button>
+                    <div></div>
+                    <div class="flex items-center">
+                      <input type="text" v-model="analysis.searchKeywordInput" placeholder="상품명" class="w-full px-2 py-1 border-b border-gray-300 focus:outline-none focus:border-blue-500" style="
+    width: 70%;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    border: 1px solid dimgray;
+    border-radius: 5px;
+    color:black;
+">
+    <button type="button" class="ml-1 px-2 py-1 bg-blue-500 text-white" @click="analysis.searchReviewSelectGrid(analysis.searchKeywordInput)" style="
+        margin-bottom: 5px;
+        border-radius: 5px;
+    ">검색</button>
+</div>
+                   
+ 
                   </div>
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
@@ -147,12 +163,12 @@ const data = [
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">마케팅 인사이트</h4>
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button>
+                   
                   </div>
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
             </div>
-              {{analysis.getInsight}}
+             <p style="color:black" v-html="analysis.getInsight"></p> 
         </div>
     
       </div>
