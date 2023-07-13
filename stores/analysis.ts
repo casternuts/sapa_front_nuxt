@@ -9,12 +9,16 @@ export interface IAnalysisState {
   gptResult: any
   backEndResult: Object
   searchString: string
+  searchFrom: string
+  searchTo: string
   startdate: any
   endDate: any
   timeUnit: any
   chartData :any
   load:any,
-  itemdata:any
+  itemdata:any,
+  reviewSelectData:any,
+  reviewInsightData:any
 }
 export const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -36,13 +40,18 @@ export const useAnalysis = defineStore('analysis', {
     timeUnit:'',
     chartData:null,
     load:false,
-    itemdata:''
+    itemdata:'',
+    searchFrom:'',
+    searchTo:'',
+    reviewSelectData:'',
+    reviewInsightData:'분석된 내용이 없습니다'
   }),
   actions: {
     async searchGpt() {
       try {
-        
-        const data = await axios.get('http://127.0.0.1:8000/api/v1/search/keyword/'+this.searchString)
+        console.log(this.searchFrom)
+        console.log(this.searchTo)
+        const data = await axios.get('http://127.0.0.1:8000/api/v1/search/keyword/'+this.searchString+'/'+this.searchFrom+'/'+this.searchTo)
         this.gptResult = data.data.results;
         this.startdate = data.data.startdate;
         
@@ -88,12 +97,12 @@ export const useAnalysis = defineStore('analysis', {
      await console.log(this.searchString);
     },
     //차트 클릭시
-    async searchItem(searchKeyword:any) {
+    async searchItem(searchKeyword:any,category:any) {
       try {
         console.log(this.gptResult);
         console.log(this.gptResult[searchKeyword].keywords);
         this.gptResult[searchKeyword].keywords.join(',')
-         const itemdata = await axios.get('http://127.0.0.1:8000/api/v1/search/itemcsv/'+this.gptResult[searchKeyword].keywords.join(','))
+         const itemdata = await axios.get('http://127.0.0.1:8000/api/v1/search/itemcsv3/'+this.gptResult[searchKeyword].keywords.join(',')+'/'+category)
          this.itemdata = JSON.parse(itemdata.data);
     
          console.log(this.itemdata);
@@ -111,6 +120,28 @@ export const useAnalysis = defineStore('analysis', {
           await console.log(error)
       }
      await console.log(this.searchString);
+    },
+     //차트 클릭시
+     async searchReviewSelectGrid(searchKeyword:any) {
+      try {
+        console.log(searchKeyword);
+        //console.log(this.gptResult[searchKeyword].keywords);
+       // this.gptResult[searchKeyword].keywords.join(',')
+         const reviewResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewFunction/'+ searchKeyword)
+         this.reviewSelectData =  JSON.parse(reviewResult.data)
+        
+         console.log( this.reviewSelectData);
+
+         const reviewInsightResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewFunction/'+ searchKeyword)
+         this.reviewInsightData =  JSON.parse(reviewInsightResult.data)
+        
+
+        }
+        catch (error) { 
+          alert(error)
+          await console.log(error)
+      }
+     //await console.log(this.searchKeyword);
     },
     setGptResult(searchString: string) {
       this.gptResult = searchString;
@@ -138,6 +169,11 @@ export const useAnalysis = defineStore('analysis', {
     },
     getItemData(state):any{
       return state.itemdata
+    },
+    getReviewSelectData(state):any{
+      return state.reviewSelectData
+    },getInsight(state):any{
+      return state.reviewInsightData
     },
     
   },

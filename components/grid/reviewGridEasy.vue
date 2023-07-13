@@ -1,7 +1,7 @@
 <template>
     <EasyDataTable
     :headers="headers"
-    :items="analysis.getItemData"
+    :items="analysis.getReviewSelectData"
     @click-row="showRow"
   />
   
@@ -20,16 +20,16 @@ defineProps({
 })
 
 const headers: Header[] = [
-  { text: "상품코드", value: "itemcode" },
-  { text: "상품명", value: "itemname"},
-  { text: "연관이유", value: "reason"},
+  { text: "상품", value: "item_name" },
+  { text: "내용", value: "greating_review"},
+  { text: "상태", value: "result"},
+  { text: "퍼센트", value: "probability"},
 
 ];
 
 const showRow = (item: ClickRowArgument) => {
   console.log(JSON.stringify(item)) 
-  let itemName :String=item.itemname;
-  analysis.searchReviewSelectGrid("낙지 김치죽 (1인분)");
+  
 };
 
 

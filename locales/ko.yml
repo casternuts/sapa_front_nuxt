@@ -22,7 +22,7 @@ pages:
     nav: 분석
     title: 분석
     description: 이것은 분석 페이지입니다
-    section_analysis: 분석하기
+    section_analysis: 검색조건
   test:
     nav: 테스트
     title: 테스트
