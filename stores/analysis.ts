@@ -132,7 +132,7 @@ export const useAnalysis = defineStore('analysis', {
         
          console.log( this.reviewSelectData);
 
-         const reviewInsightResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewFunction/'+ searchKeyword)
+         const reviewInsightResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewselect/'+ searchKeyword)
          this.reviewInsightData =  JSON.parse(reviewInsightResult.data)
         
 
