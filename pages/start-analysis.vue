@@ -9,6 +9,7 @@ import Grid  from '~/components/grid/grid.vue'
 import Easygrid  from '~/components/grid/easygrid.vue'
 import LineChart  from '~/components/charts/LineChart.vue'
 import ReviewEasygrid  from '~/components/grid/reviewGridEasy.vue'
+import loadingspinner from '~~/components/loadingspinner.vue'
 
 // composable
 const { t } = useLang()
@@ -39,6 +40,13 @@ const data = [
         },
        
     ]
+
+const onKeyPress = function(e:any){
+console.log(e)
+if(e.keyCode=='13'){
+  e.preventDefault(); 
+  analysis.searchGpt()}
+}    
 </script>
 
 <template>
@@ -75,16 +83,16 @@ const data = [
             </div>
          
             
-            <input type="search" id="default-search" v-model="analysis.searchString" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="지금 떠오르는 키워드 입력!" required>
+            <input type="search" id="default-search" v-model="analysis.searchString" @v-on:keypress="onKeyPress" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="지금 떠오르는 키워드 입력!" required>
             <cButton   @click="analysis.searchGpt" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</cButton>
         </div>
       </form>
       <div class="grid grid-cols-3 gap-4 overflow-auto h-full">
-        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
+        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" style="position: relative;">
           <div class="cardheader">
               <div>
                 <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">GPT 키워드</h4>
-                <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button>
+                <!-- <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button> -->
               </div>
               <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
             <hr class="bg-white w-full"/>
@@ -99,39 +107,41 @@ const data = [
                 </div>
                 </div>
               </template>
+              <loadingspinner :isLoading="analysis.getSpinner1"></loadingspinner>
         </div>
-        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
+        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" style="position: relative;">
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">네이버 트랜드</h4>
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button>
+                    <!-- <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">추가</button> -->
                   </div>
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
             </div>
              
                   <LineChart></LineChart>
+                  <loadingspinner :isLoading="analysis.getSpinner2"></loadingspinner>
                
         </div>
-        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
+        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" style="position: relative;" >
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">관련 상품리스트</h4>
                     <div></div>
                     <div class="flex items-center">
                       <input type="text" v-model="analysis.searchKeywordInput" placeholder="상품명" class="w-full px-2 py-1 border-b border-gray-300 focus:outline-none focus:border-blue-500" style="
-    width: 70%;
-    margin-left: 20px;
-    margin-bottom: 5px;
-    border: 1px solid dimgray;
-    border-radius: 5px;
-    color:black;
-">
-    <button type="button" class="ml-1 px-2 py-1 bg-blue-500 text-white" @click="analysis.searchReviewSelectGrid(analysis.searchKeywordInput)" style="
-        margin-bottom: 5px;
-        border-radius: 5px;
-    ">검색</button>
-</div>
+                          width: 70%;
+                          margin-left: 20px;
+                          margin-bottom: 5px;
+                          border: 1px solid dimgray;
+                          border-radius: 5px;
+                          color:black;
+                      ">
+              <button type="button" class="ml-1 px-2 py-1 bg-blue-500 text-white" @click="analysis.searchReviewSelectGrid(analysis.searchKeywordInput)" style="
+                  margin-bottom: 5px;
+                  border-radius: 5px;
+              ">검색</button>
+              </div>
                    
  
                   </div>
@@ -139,16 +149,17 @@ const data = [
                 <hr class="bg-white w-full"/>
             </div>
             <Easygrid ></Easygrid>
-            <!-- <Grid :rows="analysis.getItemData"></Grid> -->
+           
+            <loadingspinner :isLoading="analysis.getSpinner3"></loadingspinner>
         </div>
+        
       </div>
       <div class="grid grid-cols-2 gap-4 overflow-auto h-full" style="margin-top:15px;">
-        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
+        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300"  style="position: relative;">
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">관련 후기 요약</h4>
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">엑셀</button>
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center ml-auto" style="float:right">자세히</button>
+ 
                   </div>
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
@@ -157,9 +168,9 @@ const data = [
 
             <!-- <Grid :rows="data"></Grid> -->
            
-            
+            <loadingspinner :isLoading="analysis.getSpinner4"></loadingspinner>
         </div>
-        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" >
+        <div class="bg-white text-white p-4 h-30vh overflow-auto border-solid border border-slate-300" style="position: relative;" >
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">마케팅 인사이트</h4>
@@ -168,7 +179,8 @@ const data = [
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
             </div>
-             <p style="color:black" v-html="analysis.getInsight"></p> 
+             <p style="color:black; margin:10px" v-html="analysis.getInsight"></p> 
+             <loadingspinner :isLoading="analysis.getSpinner5"></loadingspinner>
         </div>
     
       </div>
@@ -193,4 +205,6 @@ const data = [
       </PageSection>
     </PageBody>
   </PageWrapper>
+
+
 </template>

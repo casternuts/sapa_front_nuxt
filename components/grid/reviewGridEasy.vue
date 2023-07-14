@@ -1,8 +1,11 @@
 <template>
+  
   <EasyDataTable
+  buttons-pagination
   :headers="headers"
   :items="analysis.getReviewSelectData"
   :body-row-class-name="bodyRowClassNameFunction"
+
   @click-row="showRow"
 />
 
@@ -21,9 +24,9 @@ rows: Object
 })
 
 const headers: Header[] = [
-{ text: "상품", value: "item_name" },
-{ text: "내용", value: "greating_review"},
-{ text: "상태", value: "result"},
+{ text: "상품", value: "item_name" ,fixed: true, width: 90},
+{ text: "내용", value: "greating_review",fixed: true, width: 350},
+{ text: "상태", value: "result",fixed: true, width: 50},
 { text: "퍼센트", value: "probability"},
 
 ];
