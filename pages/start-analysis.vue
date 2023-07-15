@@ -10,6 +10,7 @@ import Easygrid  from '~/components/grid/easygrid.vue'
 import LineChart  from '~/components/charts/LineChart.vue'
 import ReviewEasygrid  from '~/components/grid/reviewGridEasy.vue'
 import loadingspinner from '~~/components/loadingspinner.vue'
+import modal from '~~/components/modal.vue'
 
 // composable
 const { t } = useLang()
@@ -174,12 +175,13 @@ if(e.keyCode=='13'){
           <div class="cardheader">
                 <div>
                     <h4 class="text-xl font-semibold leading-6 text-gray-800" style="float:left">마케팅 인사이트</h4>
-                   
+                    <button type="button" class="ml-1 px-2 py-1 text-white" @click="analysis.openPopup(true)" 
+                    style="margin-bottom: 5px;border-radius: 5px;float:right"><img src="/assets/gem/icon.png" style="width: 20px;"></button>
                   </div>
                 <!-- 카드헤더 하단에 얇은 하얀색 실선 추가 -->
                 <hr class="bg-white w-full"/>
             </div>
-             <p style="color:black; margin:10px" v-html="analysis.getInsight"></p> 
+             <p style="margin:10px" class="text-gray-700 dark:text-gray-100" v-html="analysis.getInsight"></p> 
              <loadingspinner :isLoading="analysis.getSpinner5"></loadingspinner>
         </div>
     
@@ -202,6 +204,7 @@ if(e.keyCode=='13'){
             /> 
           </div>-->
         </div>
+        <modal></modal>
       </PageSection>
     </PageBody>
   </PageWrapper>

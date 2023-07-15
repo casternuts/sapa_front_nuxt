@@ -7,6 +7,7 @@ export interface target {
 }
 export interface IAnalysisState {
   gptResult: any
+  // eslint-disable-next-line prettier/prettier
   backEndResult: Object
   searchString: string
   searchFrom: string
@@ -15,16 +16,17 @@ export interface IAnalysisState {
   endDate: any
   timeUnit: any
   chartData :any
-  load:any,
-  itemdata:any,
-  searchKeywordInput:any,
-  reviewSelectData:any,
-  reviewInsightData:any,
-  spinnergrid1:Boolean,
-  spinnergrid2:Boolean,
-  spinnergrid3:Boolean,
-  spinnergrid4:Boolean,
+  load:any
+  itemdata:any
+  searchKeywordInput:any
+  reviewSelectData:any
+  reviewInsightData:any
+  spinnergrid1:Boolean
+  spinnergrid2:Boolean
+  spinnergrid3:Boolean
+  spinnergrid4:Boolean
   spinnergrid5:Boolean
+  popupOpen:Boolean
 }
 export const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -74,14 +76,15 @@ export const useAnalysis = defineStore('analysis', {
     spinnergrid2:false,
     spinnergrid3:false,
     spinnergrid4:false,
-    spinnergrid5:false
+    spinnergrid5:false,
+    popupOpen:false
   }),
   actions: {
     async searchGpt() {
       try {
-        //로딩 스피너 애니메이션
+        // 로딩 스피너 애니메이션
         this.spinnergrid1=true;
-        //로딩 스피너 애니메이션
+        // 로딩 스피너 애니메이션
         this.spinnergrid2=true;
         console.log(this.searchFrom)
         console.log(this.searchTo)
@@ -94,7 +97,7 @@ export const useAnalysis = defineStore('analysis', {
          console.log(data.data);
 
          console.log( this.gptResult);
-         //로딩 스피너 애니메이션
+         // 로딩 스피너 애니메이션
         this.spinnergrid1=false;
          
         //  let labels:any =[];
@@ -136,10 +139,10 @@ export const useAnalysis = defineStore('analysis', {
       }
      await console.log(this.searchString);
     },
-    //차트 클릭시
+    // 차트 클릭시
     async searchItem(searchKeyword:any,category:any) {
       try {
-            //로딩 스피너 애니메이션
+            // 로딩 스피너 애니메이션
             this.spinnergrid3=true;
         console.log(this.gptResult);
         console.log(this.gptResult[searchKeyword].keywords);
@@ -149,54 +152,52 @@ export const useAnalysis = defineStore('analysis', {
     
          console.log(this.itemdata);
          
-    //로딩 스피너 애니메이션
+    // 로딩 스피너 애니메이션
     this.spinnergrid3=false;
-         
-       
-        
-        //  let labels:any =[];
-        
 
         }
         catch (error) { 
           alert(error)
           await console.log(error)
-              //로딩 스피너 애니메이션
+              // 로딩 스피너 애니메이션
     this.spinnergrid3=false;
       }
      await console.log(this.searchString);
     },
-     //그리드 클릭시
+     // 그리드 클릭시
      async searchReviewSelectGrid(searchKeyword:any) {
       try {
-            //로딩 스피너 애니메이션
+            // 로딩 스피너 애니메이션
             this.spinnergrid4=true;
              
         console.log(searchKeyword);
-        //console.log(this.gptResult[searchKeyword].keywords);
-       // this.gptResult[searchKeyword].keywords.join(',')
+     
          const reviewResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewFunction/'+ searchKeyword)
          this.reviewSelectData =  JSON.parse(reviewResult.data)
-           //로딩 스피너 애니메이션
+           // 로딩 스피너 애니메이션
            this.spinnergrid4=false;
          console.log( this.reviewSelectData);
-        //로딩 스피너 애니메이션
+        // 로딩 스피너 애니메이션
         this.spinnergrid5=true;
          const reviewInsightResult = await axios.get('http://127.0.0.1:8000/api/v1/search/reviewselect/'+ searchKeyword)
          this.reviewInsightData = reviewInsightResult.data.replace(/\n/g, "<br>"); 
         
-     //로딩 스피너 애니메이션
+     // 로딩 스피너 애니메이션
      this.spinnergrid5=false;
         }
         catch (error) { 
           alert("GPT 서버와 통신 중 에러 혹은 정상적인 리뷰 데이터를 찾을 수 없습니다.")
           await console.log(error)
-               //로딩 스피너 애니메이션
+               // 로딩 스피너 애니메이션
         this.spinnergrid4=false;
-               //로딩 스피너 애니메이션
+               // 로딩 스피너 애니메이션
         this.spinnergrid5=false;
       }
-     //await console.log(this.searchKeyword);
+     // await console.log(this.searchKeyword);
+    },
+    openPopup(open:boolean){
+      console.log(open);
+      this.popupOpen = open
     },
     setGptResult(searchString: string) {
       this.gptResult = searchString;
